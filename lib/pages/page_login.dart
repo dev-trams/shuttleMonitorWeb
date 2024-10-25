@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shuttle_monitor_web/service/account.dart';
 
 Scaffold loginBox(context) => Scaffold(
@@ -24,8 +25,12 @@ Scaffold loginBox(context) => Scaffold(
                   builder: (context, snapshot) {
                     return TextButton(
                       onPressed: () {
+                        authModule(context, _controllerID.value.text,
+                            _controllerPWD.value.text);
                         if (snapshot.hasData) {
-                          debugPrint(snapshot.data);
+                          debugPrint(snapshot.data.toString());
+                          // authModule(context, _controllerID.value.text,
+                          //     _controllerPWD.value.text);
                         } else {
                           debugPrint(snapshot.error.toString());
                         }
@@ -64,4 +69,18 @@ Container inputBox({
       controller: controller,
     ),
   );
+}
+
+void authModule(BuildContext context, String id, String pwd) {
+  debugPrint('ID$id, PWD$pwd');
+  if (id == 'OPER') {
+    if (pwd == 'OPER') {
+      GoRouter.of(context).goNamed('oper');
+    }
+  }
+  if (id == 'mag') {
+    if (pwd == 'mag') {
+      GoRouter.of(context).goNamed('mag');
+    }
+  }
 }
